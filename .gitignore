@@ -1,0 +1,32 @@
+# SynthMind - Adaptive Research & Decision Intelligence Partner
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.next/
+out/
+
+# Environment
+.env
+.env.local
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
