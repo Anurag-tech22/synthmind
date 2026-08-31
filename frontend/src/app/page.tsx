@@ -836,7 +836,7 @@ At the very end of your response, output a single JSON code block containing a M
               // Ignore json parse error
             }
           }
-          generatedContent = rawText;
+          generatedContent = rawText.replace(/```json\s*[\s\S]*?\s*```/g, "").trim();
         }
       }
     } catch {
