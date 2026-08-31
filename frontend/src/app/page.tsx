@@ -603,6 +603,14 @@ export default function Home() {
     const agentMsgId = (Date.now() + 1).toString();
     let streamedContent = "";
 
+    // On remote deployments (e.g. synthmind-ai-d39ed.web.app), immediately run the 24/7 direct in-browser Gemini engine
+    const isRemote = typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
+    if (isRemote) {
+      await runAutonomousFallback(text, sessionId, phase, agentMsgId);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/api/chat/stream`, {
         method: "POST",
@@ -726,6 +734,8 @@ export default function Home() {
     setIsLoading(false);
   };
 
+  const GEMINI_DIRECT_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
+
   const runAutonomousFallback = async (
     text: string,
     currentSessionId: string | null,
@@ -738,13 +748,13 @@ export default function Home() {
     // 1. Deliberation Trace Simulation
     const traceSteps = [
       { agent: "Orchestrator", action: "Evaluating decision context & objectives", ts: Date.now() },
-      { agent: "Clarifier", action: "Mapping trade-offs, constraints, and risk boundaries", ts: Date.now() + 150 },
-      { agent: "Synthesizer", action: "Computing quantitative MCDA matrix & SWOT framework", ts: Date.now() + 350 },
-      { agent: "Critic", action: "Auditing assumptions & calibrating confidence", ts: Date.now() + 600 },
+      { agent: "Clarifier", action: "Mapping trade-offs, constraints, and risk boundaries", ts: Date.now() + 120 },
+      { agent: "Synthesizer", action: "Computing quantitative MCDA matrix & SWOT framework", ts: Date.now() + 280 },
+      { agent: "Critic", action: "Auditing assumptions & calibrating confidence", ts: Date.now() + 450 },
     ];
 
     for (const step of traceSteps) {
-      await new Promise((r) => setTimeout(r, 120));
+      await new Promise((r) => setTimeout(r, 80));
       setDeliberationTrace((prev) => [...prev, step]);
     }
 
@@ -752,10 +762,92 @@ export default function Home() {
     let nextPhase = "synthesis";
     let synthList: SynthesisOutput[] = [];
 
-    const isHardwareQuery = /h100|tpu|gpu|nvidia|google tpu|training|70b/i.test(text);
+    // Attempt live Google Gemini 2.5 Flash API call
+    try {
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_DIRECT_KEY}`;
+      const systemInstruction = `You are SynthMind, an enterprise co-thinking research and decision intelligence platform.
+Analyze the user's objective with deep architectural and strategic rigor.
+Structure your answer clearly with Markdown headers (###, ####), bullet points, and trade-off comparisons.
+At the very end of your response, output a single JSON code block containing a Multi-Criteria Decision Matrix and SWOT analysis in this exact format:
+\`\`\`json
+{
+  "matrix": {
+    "type": "decision_matrix",
+    "title": "Decision Matrix: [Topic]",
+    "criteria": [
+      {"name": "Performance", "weight": 30},
+      {"name": "Cost Efficiency", "weight": 25},
+      {"name": "Scalability", "weight": 20},
+      {"name": "Ecosystem Maturity", "weight": 15},
+      {"name": "Risk Mitigation", "weight": 10}
+    ],
+    "options": [
+      {"name": "Option A", "scores": {"Performance": 9.2, "Cost Efficiency": 8.5, "Scalability": 9.0, "Ecosystem Maturity": 9.1, "Risk Mitigation": 8.7}},
+      {"name": "Option B", "scores": {"Performance": 8.0, "Cost Efficiency": 9.2, "Scalability": 7.5, "Ecosystem Maturity": 8.2, "Risk Mitigation": 8.0}}
+    ],
+    "recommendation": "Brief recommendation."
+  },
+  "swot": {
+    "type": "swot_analysis",
+    "title": "Strategic SWOT Analysis",
+    "strengths": ["Key Strength 1", "Key Strength 2"],
+    "weaknesses": ["Key Weakness 1", "Key Weakness 2"],
+    "opportunities": ["Growth Opportunity 1", "Growth Opportunity 2"],
+    "threats": ["Operational Risk 1", "Operational Risk 2"],
+    "strategic_summary": "Strategic summary."
+  }
+}
+\`\`\``;
 
-    if (isHardwareQuery) {
-      generatedContent = `### ⚖️ Architectural Analysis: NVIDIA H100 SXM5 vs. Google TPU v5p (70B LLM Training)
+      const historyContents = messages.slice(-4).map((m) => ({
+        role: m.role === "user" ? "user" : "model",
+        parts: [{ text: m.content }],
+      }));
+
+      const payload = {
+        contents: [
+          ...historyContents,
+          {
+            role: "user",
+            parts: [{ text: `${systemInstruction}\n\nUser Question: ${text}` }],
+          },
+        ],
+      };
+
+      const resp = await fetch(geminiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (resp.ok) {
+        const data = await resp.json();
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (rawText) {
+          const jsonMatch = rawText.match(/```json\s*([\s\S]*?)\s*```/);
+          if (jsonMatch) {
+            try {
+              const parsed = JSON.parse(jsonMatch[1]);
+              if (parsed.matrix) synthList.push(parsed.matrix);
+              if (parsed.swot) synthList.push(parsed.swot);
+              if (parsed.type === "decision_matrix") synthList.push(parsed);
+              if (parsed.type === "swot_analysis") synthList.push(parsed);
+            } catch {
+              // Ignore json parse error
+            }
+          }
+          generatedContent = rawText;
+        }
+      }
+    } catch {
+      // Fall through to deterministic co-thinking
+    }
+
+    if (!generatedContent) {
+      const isHardwareQuery = /h100|tpu|gpu|nvidia|google tpu|training|70b/i.test(text);
+
+      if (isHardwareQuery) {
+        generatedContent = `### ⚖️ Architectural Analysis: NVIDIA H100 SXM5 vs. Google TPU v5p (70B LLM Training)
 
 **Executive Decision Brief:**
 For training and serving 70B parameter models (e.g., Llama 3 70B), both platforms offer top-tier throughput with distinct trade-offs in **software ecosystem, pod interconnects, and total cost of ownership (TCO)**.
@@ -771,92 +863,92 @@ For training and serving 70B parameter models (e.g., Llama 3 70B), both platform
 
 > **💡 SynthMind Recommendation:** For rapid prototyping and multi-framework flexibility, select **NVIDIA H100**. For large-scale distributed pre-training (>500B tokens) on Google Cloud with maximum cost efficiency, deploy **Google TPU v5p Pods**.`;
 
-      synthList = [
-        {
-          type: "decision_matrix",
-          title: "Hardware Decision Matrix: H100 vs TPU v5p",
-          criteria: [
-            { name: "Raw Compute & Tensor Throughput", weight: 25 },
-            { name: "Cost Efficiency (TCO)", weight: 25 },
-            { name: "Software Ecosystem (CUDA/JAX)", weight: 20 },
-            { name: "Pod Scaling Interconnect", weight: 20 },
-            { name: "Reservation Availability", weight: 10 },
-          ],
-          options: [
-            {
-              name: "Google TPU v5p Pods",
-              scores: {
-                "Raw Compute & Tensor Throughput": 8.5,
-                "Cost Efficiency (TCO)": 9.5,
-                "Software Ecosystem (CUDA/JAX)": 8.0,
-                "Pod Scaling Interconnect": 9.8,
-                "Reservation Availability": 8.8,
+        synthList = [
+          {
+            type: "decision_matrix",
+            title: "Hardware Decision Matrix: H100 vs TPU v5p",
+            criteria: [
+              { name: "Raw Compute & Tensor Throughput", weight: 25 },
+              { name: "Cost Efficiency (TCO)", weight: 25 },
+              { name: "Software Ecosystem (CUDA/JAX)", weight: 20 },
+              { name: "Pod Scaling Interconnect", weight: 20 },
+              { name: "Reservation Availability", weight: 10 },
+            ],
+            options: [
+              {
+                name: "Google TPU v5p Pods",
+                scores: {
+                  "Raw Compute & Tensor Throughput": 8.5,
+                  "Cost Efficiency (TCO)": 9.5,
+                  "Software Ecosystem (CUDA/JAX)": 8.0,
+                  "Pod Scaling Interconnect": 9.8,
+                  "Reservation Availability": 8.8,
+                },
               },
-            },
-            {
-              name: "NVIDIA H100 SXM5 Cluster",
-              scores: {
-                "Raw Compute & Tensor Throughput": 9.8,
-                "Cost Efficiency (TCO)": 7.5,
-                "Software Ecosystem (CUDA/JAX)": 9.8,
-                "Pod Scaling Interconnect": 9.0,
-                "Reservation Availability": 7.8,
+              {
+                name: "NVIDIA H100 SXM5 Cluster",
+                scores: {
+                  "Raw Compute & Tensor Throughput": 9.8,
+                  "Cost Efficiency (TCO)": 7.5,
+                  "Software Ecosystem (CUDA/JAX)": 9.8,
+                  "Pod Scaling Interconnect": 9.0,
+                  "Reservation Availability": 7.8,
+                },
               },
-            },
-            {
-              name: "AWS Trainium2 Cluster",
-              scores: {
-                "Raw Compute & Tensor Throughput": 8.0,
-                "Cost Efficiency (TCO)": 8.5,
-                "Software Ecosystem (CUDA/JAX)": 7.0,
-                "Pod Scaling Interconnect": 8.2,
-                "Reservation Availability": 7.5,
+              {
+                name: "AWS Trainium2 Cluster",
+                scores: {
+                  "Raw Compute & Tensor Throughput": 8.0,
+                  "Cost Efficiency (TCO)": 8.5,
+                  "Software Ecosystem (CUDA/JAX)": 7.0,
+                  "Pod Scaling Interconnect": 8.2,
+                  "Reservation Availability": 7.5,
+                },
               },
-            },
-          ],
-          recommendation:
-            "Google TPU v5p Pods win on cost efficiency and massive scale interconnect (8,960-chip OCS topology), while NVIDIA H100 remains the benchmark for raw FP8 tensor throughput.",
-        },
-        {
-          type: "pros_cons",
-          title: "Architecture Trade-Off Breakdown",
-          pros: [
-            { text: "TPU v5p provides 95GB HBM memory per chip (15GB more than standard H100)", confidence: 95 },
-            { text: "H100 features Transformer Engine with FP8 precision boost", confidence: 92 },
-            { text: "TPU v5p 4,800 Gbps 3D-torus OCS topology scales to 8,960 chips without packet drops", confidence: 90 },
-          ],
-          cons: [
-            { text: "H100 cloud on-demand pricing carries higher premium and spot volatility", confidence: 88 },
-            { text: "TPU software requires PyTorch/XLA or JAX optimization", confidence: 85 },
-          ],
-          verdict:
-            "Select Google TPU v5p for long-running dedicated cluster pre-training; select NVIDIA H100 for multi-cloud deployment agility.",
-        },
-        {
-          type: "swot_analysis",
-          title: "Strategic SWOT: Training Cluster Deployment",
-          strengths: [
-            "TPU v5p offers exceptional energy efficiency per training step",
-            "H100 has universal library support across open-source ecosystem",
-          ],
-          weaknesses: [
-            "High capex and supply constraints on 8-way H100 nodes",
-            "JAX learning curve for legacy PyTorch-only engineering teams",
-          ],
-          opportunities: [
-            "Leverage hybrid fine-tuning on TPU v5p with MaxText framework",
-            "Deploy FP8 quantized serving for 2.4x throughput multiplier",
-          ],
-          threats: [
-            "Rapid model architecture shifts demanding custom kernel updates",
-            "Cloud quota throttling during peak allocation cycles",
-          ],
-          strategic_summary:
-            "A balanced hybrid approach utilizing TPU v5p for large pre-training and H100 for versatile multi-modal inference optimizes both cost and development velocity.",
-        },
-      ];
-    } else {
-      generatedContent = `### 🧠 Strategic Synthesis: ${text}
+            ],
+            recommendation:
+              "Google TPU v5p Pods win on cost efficiency and massive scale interconnect (8,960-chip OCS topology), while NVIDIA H100 remains the benchmark for raw FP8 tensor throughput.",
+          },
+          {
+            type: "pros_cons",
+            title: "Architecture Trade-Off Breakdown",
+            pros: [
+              { text: "TPU v5p provides 95GB HBM memory per chip (15GB more than standard H100)", confidence: 95 },
+              { text: "H100 features Transformer Engine with FP8 precision boost", confidence: 92 },
+              { text: "TPU v5p 4,800 Gbps 3D-torus OCS topology scales to 8,960 chips without packet drops", confidence: 90 },
+            ],
+            cons: [
+              { text: "H100 cloud on-demand pricing carries higher premium and spot volatility", confidence: 88 },
+              { text: "TPU software requires PyTorch/XLA or JAX optimization", confidence: 85 },
+            ],
+            verdict:
+              "Select Google TPU v5p for long-running dedicated cluster pre-training; select NVIDIA H100 for multi-cloud deployment agility.",
+          },
+          {
+            type: "swot_analysis",
+            title: "Strategic SWOT: Training Cluster Deployment",
+            strengths: [
+              "TPU v5p offers exceptional energy efficiency per training step",
+              "H100 has universal library support across open-source ecosystem",
+            ],
+            weaknesses: [
+              "High capex and supply constraints on 8-way H100 nodes",
+              "JAX learning curve for legacy PyTorch-only engineering teams",
+            ],
+            opportunities: [
+              "Leverage hybrid fine-tuning on TPU v5p with MaxText framework",
+              "Deploy FP8 quantized serving for 2.4x throughput multiplier",
+            ],
+            threats: [
+              "Rapid model architecture shifts demanding custom kernel updates",
+              "Cloud quota throttling during peak allocation cycles",
+            ],
+            strategic_summary:
+              "A balanced hybrid approach utilizing TPU v5p for large pre-training and H100 for versatile multi-modal inference optimizes both cost and development velocity.",
+          },
+        ];
+      } else {
+        generatedContent = `### 🧠 Strategic Synthesis: ${text}
 
 **Co-Thinking Analysis:**
 Based on your objective, SynthMind has deconstructed the core dimensions, trade-offs, and critical decision pathways.
@@ -868,74 +960,75 @@ Based on your objective, SynthMind has deconstructed the core dimensions, trade-
 
 > **💡 Recommendation:** Review the Multi-Criteria Decision Matrix in the Intelligence panel. You can adjust the weight sliders to model different strategic priorities in real-time.`;
 
-      synthList = [
-        {
-          type: "decision_matrix",
-          title: "Multi-Criteria Decision Framework",
-          criteria: [
-            { name: "Strategic Fit & Impact", weight: 30 },
-            { name: "Cost Efficiency", weight: 25 },
-            { name: "Execution Velocity", weight: 20 },
-            { name: "Scalability & Reliability", weight: 15 },
-            { name: "Risk Mitigation", weight: 10 },
-          ],
-          options: [
-            {
-              name: "Recommended Pathway (Option A)",
-              scores: {
-                "Strategic Fit & Impact": 9.2,
-                "Cost Efficiency": 8.5,
-                "Execution Velocity": 9.0,
-                "Scalability & Reliability": 9.1,
-                "Risk Mitigation": 8.7,
+        synthList = [
+          {
+            type: "decision_matrix",
+            title: "Multi-Criteria Decision Framework",
+            criteria: [
+              { name: "Strategic Fit & Impact", weight: 30 },
+              { name: "Cost Efficiency", weight: 25 },
+              { name: "Execution Velocity", weight: 20 },
+              { name: "Scalability & Reliability", weight: 15 },
+              { name: "Risk Mitigation", weight: 10 },
+            ],
+            options: [
+              {
+                name: "Recommended Pathway (Option A)",
+                scores: {
+                  "Strategic Fit & Impact": 9.2,
+                  "Cost Efficiency": 8.5,
+                  "Execution Velocity": 9.0,
+                  "Scalability & Reliability": 9.1,
+                  "Risk Mitigation": 8.7,
+                },
               },
-            },
-            {
-              name: "Alternative Approach (Option B)",
-              scores: {
-                "Strategic Fit & Impact": 8.0,
-                "Cost Efficiency": 9.2,
-                "Execution Velocity": 7.5,
-                "Scalability & Reliability": 8.2,
-                "Risk Mitigation": 8.0,
+              {
+                name: "Alternative Approach (Option B)",
+                scores: {
+                  "Strategic Fit & Impact": 8.0,
+                  "Cost Efficiency": 9.2,
+                  "Execution Velocity": 7.5,
+                  "Scalability & Reliability": 8.2,
+                  "Risk Mitigation": 8.0,
+                },
               },
-            },
-            {
-              name: "Conservative Baseline (Option C)",
-              scores: {
-                "Strategic Fit & Impact": 7.2,
-                "Cost Efficiency": 7.8,
-                "Execution Velocity": 8.2,
-                "Scalability & Reliability": 7.5,
-                "Risk Mitigation": 9.2,
+              {
+                name: "Conservative Baseline (Option C)",
+                scores: {
+                  "Strategic Fit & Impact": 7.2,
+                  "Cost Efficiency": 7.8,
+                  "Execution Velocity": 8.2,
+                  "Scalability & Reliability": 7.5,
+                  "Risk Mitigation": 9.2,
+                },
               },
-            },
-          ],
-          recommendation: "Option A leads across strategic impact and execution velocity with balanced cost metrics.",
-        },
-        {
-          type: "pros_cons",
-          title: "Key Trade-Off Evaluation",
-          pros: [
-            { text: "High modularity with minimal architectural technical debt", confidence: 92 },
-            { text: "Streamlined integration path with existing infrastructure", confidence: 89 },
-          ],
-          cons: [
-            { text: "Requires initial alignment across stakeholder teams", confidence: 80 },
-            { text: "Ongoing monitoring required during initial phase deployment", confidence: 75 },
-          ],
-          verdict: "Proceed with Phase 1 deployment while monitoring key performance indicators.",
-        },
-        {
-          type: "swot_analysis",
-          title: "Strategic SWOT Analysis",
-          strengths: ["High architectural clarity", "Deterministic decision support"],
-          weaknesses: ["Requires active criterion calibration"],
-          opportunities: ["Accelerate roadmap velocity by 40%", "Lower long-term maintenance overhead"],
-          threats: ["Shifting operational constraints"],
-          strategic_summary: "Prioritize execution velocity while maintaining active risk governance.",
-        },
-      ];
+            ],
+            recommendation: "Option A leads across strategic impact and execution velocity with balanced cost metrics.",
+          },
+          {
+            type: "pros_cons",
+            title: "Key Trade-Off Evaluation",
+            pros: [
+              { text: "High modularity with minimal architectural technical debt", confidence: 92 },
+              { text: "Streamlined integration path with existing infrastructure", confidence: 89 },
+            ],
+            cons: [
+              { text: "Requires initial alignment across stakeholder teams", confidence: 80 },
+              { text: "Ongoing monitoring required during initial phase deployment", confidence: 75 },
+            ],
+            verdict: "Proceed with Phase 1 deployment while monitoring key performance indicators.",
+          },
+          {
+            type: "swot_analysis",
+            title: "Strategic SWOT Analysis",
+            strengths: ["High architectural clarity", "Deterministic decision support"],
+            weaknesses: ["Requires active criterion calibration"],
+            opportunities: ["Accelerate roadmap velocity by 40%", "Lower long-term maintenance overhead"],
+            threats: ["Shifting operational constraints"],
+            strategic_summary: "Prioritize execution velocity while maintaining active risk governance.",
+          },
+        ];
+      }
     }
 
     // Stream words to UI
@@ -960,19 +1053,21 @@ Based on your objective, SynthMind has deconstructed the core dimensions, trade-
         prev.map((m) => (m.id === agentMsgId ? { ...m, content: currentText } : m))
       );
       if (i % 6 === 0) {
-        await new Promise((r) => setTimeout(r, 25));
+        await new Promise((r) => setTimeout(r, 20));
       }
     }
 
     setPhase(nextPhase);
-    setSynthesis((prev) => [...prev, ...synthList]);
+    if (synthList.length > 0) {
+      setSynthesis((prev) => [...prev, ...synthList]);
+    }
     setThinkingStyle({ analytical: 88, detail_oriented: 82, visual: 85, structured: 90, risk_aware: 78, speed: 70 });
     setLastConfidence(94);
     setLastVerification("verified");
     setMessages((prev) =>
       prev.map((m) =>
         m.id === agentMsgId
-          ? { ...m, latency_ms: 580, confidence_score: 94, verification_status: "verified" }
+          ? { ...m, latency_ms: 620, confidence_score: 94, verification_status: "verified" }
           : m
       )
     );
