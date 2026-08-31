@@ -762,11 +762,18 @@ export default function Home() {
     let nextPhase = "synthesis";
     let synthList: SynthesisOutput[] = [];
 
-    // Attempt live Google Gemini 2.5 Flash API call
-    try {
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_DIRECT_KEY}`;
-      const systemInstruction = `You are SynthMind, an enterprise co-thinking research and decision intelligence platform.
-Analyze the user's objective with deep architectural and strategic rigor.
+    // Multi-Model Candidate Pool for 100% 24/7 Uptime (Automatic failover on 429 quota/rate-limits)
+    const candidateModels = [
+      "gemini-3.5-flash-lite",
+      "gemini-3.5-flash",
+      "gemini-3.7-flash",
+      "gemini-flash-latest",
+      "gemini-2.5-flash",
+    ];
+
+    const systemInstruction = `You are SynthMind, an enterprise co-thinking research and decision intelligence platform.
+Analyze the user's objective with deep architectural, strategic, or domain-specific rigor.
+Always answer in the exact language requested by the user (e.g., if asked in Marathi, answer in Marathi; if Hindi, German, Japanese, Spanish, etc., answer in that language).
 Structure your answer clearly with Markdown headers (###, ####), bullet points, and trade-off comparisons.
 At the very end of your response, output a single JSON code block containing a Multi-Criteria Decision Matrix and SWOT analysis in this exact format:
 \`\`\`json
@@ -799,48 +806,59 @@ At the very end of your response, output a single JSON code block containing a M
 }
 \`\`\``;
 
-      const historyContents = messages.slice(-4).map((m) => ({
+    const cleanHistory = messages
+      .filter((m) => m.content && m.content.trim().length > 0)
+      .slice(-3)
+      .map((m) => ({
         role: m.role === "user" ? "user" : "model",
-        parts: [{ text: m.content }],
+        parts: [{ text: m.content.substring(0, 1000) }],
       }));
 
-      const payload = {
-        contents: [
-          ...historyContents,
-          {
-            role: "user",
-            parts: [{ text: `${systemInstruction}\n\nUser Question: ${text}` }],
-          },
-        ],
-      };
+    for (const modelName of candidateModels) {
+      if (generatedContent) break;
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_DIRECT_KEY}`;
+        const payload = {
+          contents: [
+            ...cleanHistory,
+            {
+              role: "user",
+              parts: [{ text: `${systemInstruction}\n\nUser Question: ${text}` }],
+            },
+          ],
+        };
 
-      const resp = await fetch(geminiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+        const resp = await fetch(geminiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
 
-      if (resp.ok) {
-        const data = await resp.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (rawText) {
-          const jsonMatch = rawText.match(/```json\s*([\s\S]*?)\s*```/);
-          if (jsonMatch) {
-            try {
-              const parsed = JSON.parse(jsonMatch[1]);
-              if (parsed.matrix) synthList.push(parsed.matrix);
-              if (parsed.swot) synthList.push(parsed.swot);
-              if (parsed.type === "decision_matrix") synthList.push(parsed);
-              if (parsed.type === "swot_analysis") synthList.push(parsed);
-            } catch {
-              // Ignore json parse error
+        if (resp.ok) {
+          const data = await resp.json();
+          const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) {
+            const jsonMatch = rawText.match(/```json\s*([\s\S]*?)\s*```/);
+            if (jsonMatch) {
+              try {
+                const parsed = JSON.parse(jsonMatch[1]);
+                if (parsed.matrix) synthList.push(parsed.matrix);
+                if (parsed.swot) synthList.push(parsed.swot);
+                if (parsed.type === "decision_matrix") synthList.push(parsed);
+                if (parsed.type === "swot_analysis") synthList.push(parsed);
+              } catch {
+                // Ignore json parse error
+              }
             }
+            generatedContent = rawText.replace(/```json\s*[\s\S]*?\s*```/g, "").trim();
+            break;
           }
-          generatedContent = rawText.replace(/```json\s*[\s\S]*?\s*```/g, "").trim();
+        } else {
+          console.warn(`[SynthMind] Model ${modelName} returned status ${resp.status}, trying next model...`);
         }
+      } catch (err) {
+        console.warn(`[SynthMind] Model ${modelName} failed:`, err);
       }
-    } catch {
-      // Fall through to deterministic co-thinking
     }
 
     if (!generatedContent) {
