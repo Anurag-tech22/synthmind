@@ -2,6 +2,12 @@
 
 > **"Don't just search. Think together."**
 
+🚀 **Live Production Web App (Firebase Hosting):** **[https://synthmind-ai-d39ed.web.app](https://synthmind-ai-d39ed.web.app)**  
+🗄️ **Google Cloud Infrastructure:** **Google Cloud Firestore Database (`synthmind-ai-d39ed`)**  
+💻 **GitHub Repository:** **[https://github.com/Anurag-tech22/synthmind](https://github.com/Anurag-tech22/synthmind)**
+
+---
+
 SynthMind is an autonomous collaborative AI partner that transforms complex research into structured decisions through adaptive co-thinking. Powered by **Google ADK (Agent Development Kit)**, **Google GenAI SDK**, **Gemini 3.5 / 3.7 Flash**, and **Google Cloud Firestore**, it guides users through structured research methodology, actively synthesizes multi-source data into interactive frameworks, and adapts in real-time to each user's unique cognitive style.
 
 ---
@@ -121,14 +127,23 @@ pytest tests/ -v
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Deployment & Local Quickstart Guide
 
-### Prerequisites
+### 🌐 Live Cloud Deployment (Production)
+- **Live Web App:** **[https://synthmind-ai-d39ed.web.app](https://synthmind-ai-d39ed.web.app)**
+- **Database:** Google Cloud Firestore (`synthmind-ai-d39ed`)
+- **Deploy Command:** `npx firebase deploy`
+
+---
+
+### 💻 Local Development Setup
+
+#### Prerequisites
 - Python 3.10+
 - Node.js 18+
 - Gemini API Key from [Google AI Studio](https://aistudio.google.com)
 
-### 1. Backend Setup
+#### 1. Backend Setup
 
 ```bash
 cd synthmind/backend
@@ -140,15 +155,15 @@ python -m venv venv
 # Install dependencies
 pip install -r requirements.txt
 
-# Run test suite
+# Run automated test suite (17/17 tests)
 pytest tests/ -v
 
 # Start FastAPI server
 python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
-*Backend runs on `http://localhost:8000` (Docs at `http://localhost:8000/docs`)*
+*API Gateway runs on `http://localhost:8000` (Docs at `http://localhost:8000/docs`)*
 
-### 2. Frontend Setup
+#### 2. Frontend Setup
 
 ```bash
 cd synthmind/frontend
