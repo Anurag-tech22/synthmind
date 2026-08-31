@@ -60,6 +60,25 @@ synthmind/
 
 ---
 
+## 🛠️ Technology Stack
+
+| Layer / Category | Technology | Role & Key Features |
+|---|---|---|
+| **🧠 Foundation Models** | **Gemini 3.5 Flash Lite / 3.5 Flash / 3.7 Flash** | High-speed multimodal inference, complex reasoning & structured synthesis |
+| **🔍 Search Grounding** | **Google Search Engine Tool** | Real-time web retrieval for dynamic fact-checking & research grounding |
+| **🤖 Multi-Agent Framework** | **Google ADK (Agent Development Kit)** + **Google GenAI SDK** | Hierarchical agent orchestration, sub-agent delegation & critic loop |
+| **💎 Edge & Open Models** | **Google Gemma 2** (`gemma-4-26b-a4b-it`) | Parameter-efficient distillation & edge fact extraction |
+| **🎬 Multimodal Studio** | **Google Veo 3.1** + **Google DeepMind Lyria** | Text-to-video storyboards & acoustic soundscape cues |
+| **⚡ Backend API Gateway** | **Python 3.13 + FastAPI + Uvicorn** | Async REST & SSE streaming server with sliding-window rate limiter |
+| **📊 Deterministic Engine** | **MCDA Quantitative Math Engine** | Python weighted-sum scoring, rank sorting & sensitivity sweeps |
+| **🗄️ Database & Persistence** | **Google Cloud Firestore (Datastore NoSQL)** | Distributed persistent session state, decision artifacts & user profiles |
+| **🎨 Frontend Web UI** | **Next.js 16 + React 19 + TypeScript** | Dark glassmorphic dashboard with live interactive sliders |
+| **🛡️ Security & XSS** | **DOMPurify + Strict CORS Middleware** | Client-side HTML sanitization & whitelisted origin enforcement |
+| **🧪 Testing & Quality** | **Pytest 9.1 + Pytest-Asyncio** | 100% automated test coverage across tools, state machines & API routes |
+| **🚀 Cloud Deployment** | **Firebase Hosting (Google Global CDN)** | Edge-cached static delivery for sub-100ms global latency |
+
+---
+
 ## 🧪 Automated Testing Suite (100% Pass)
 
 SynthMind comes with an enterprise-grade automated test suite covering state transitions, mathematical calculations, domain models, and API endpoints:
