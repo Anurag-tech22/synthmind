@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SynthMind — Adaptive Research & Decision Intelligence Partner",
-  description: "Don't just search. Think together. An AI-powered collaborative partner that transforms chaotic research into structured decisions.",
-  keywords: "AI, research, decision making, Gemini, Google ADK, collaborative partner",
+  title: "SynthMind — Adaptive Research & Decision Intelligence",
+  description: "Don't just search. Think together. An autonomous research partner that transforms chaotic information into crystal-clear decisions through adaptive co-intelligence.",
+  keywords: "AI agent, research intelligence, decision making, autonomous research, collaborative intelligence",
 };
 
 export default function RootLayout({
@@ -14,6 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+      </head>
       <body>{children}</body>
     </html>
   );

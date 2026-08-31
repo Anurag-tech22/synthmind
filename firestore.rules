@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write to synthmind sessions
+    match /synthmind_sessions/{sessionId} {
+      allow read, write: if true;
+    }
+    // Allow read/write to synthmind user profiles
+    match /synthmind_users/{userId} {
+      allow read, write: if true;
+    }
+  }
+}

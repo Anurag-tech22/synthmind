@@ -1,7 +1,10 @@
 # SynthMind Backend Dependencies
 google-genai>=1.0.0
+google-cloud-firestore>=2.19.0
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 python-multipart>=0.0.9
 python-dotenv>=1.0.0
 httpx>=0.27.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.0

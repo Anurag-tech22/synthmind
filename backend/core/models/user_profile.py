@@ -36,8 +36,12 @@ class ThinkingStyle:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, int]) -> ThinkingStyle:
-        return cls(**{k: data.get(k, 50) for k in cls.__dataclass_fields__})
+    def from_dict(cls, data: dict[str, Any] | ThinkingStyle) -> ThinkingStyle:
+        if isinstance(data, ThinkingStyle):
+            return data
+        if not isinstance(data, dict):
+            return cls()
+        return cls(**{k: data.get(k, 50) for k in cls.__dataclass_fields__ if k in data or hasattr(cls, k)})
 
     def dominant_traits(self) -> list[str]:
         """Return the user's strongest thinking traits (score > 65)."""
@@ -66,7 +70,6 @@ class UserProfile:
     preferred_output_formats: list[str] = field(
         default_factory=lambda: ["decision_matrix", "comparison_table", "key_insights"]
     )
-    # Tracks what kind of feedback user gives most
     feedback_history: list[dict[str, Any]] = field(default_factory=list)
     total_sessions: int = 0
     topics_researched: list[str] = field(default_factory=list)
@@ -77,15 +80,24 @@ class UserProfile:
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
 
+    def __post_init__(self):
+        if isinstance(self.thinking_style, dict):
+            self.thinking_style = ThinkingStyle.from_dict(self.thinking_style)
+
     def to_dict(self) -> dict[str, Any]:
+        style_dict = (
+            self.thinking_style.to_dict()
+            if hasattr(self.thinking_style, "to_dict")
+            else dict(self.thinking_style)
+        )
         return {
             "user_id": self.user_id,
             "display_name": self.display_name,
-            "thinking_style": self.thinking_style.to_dict(),
+            "thinking_style": style_dict,
             "preferred_output_formats": self.preferred_output_formats,
-            "feedback_history": self.feedback_history[-50:],  # Keep last 50
+            "feedback_history": self.feedback_history[-50:],
             "total_sessions": self.total_sessions,
-            "topics_researched": self.topics_researched[-20:],  # Keep last 20
+            "topics_researched": self.topics_researched[-20:],
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }

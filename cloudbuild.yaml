@@ -1,0 +1,28 @@
+steps:
+  # 1. Build Backend Container
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/synthmind-backend:latest', './backend']
+
+  # 2. Push Backend to Google Container Registry / Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/synthmind-backend:latest']
+
+  # 3. Deploy Backend to Google Cloud Run (Serverless)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'synthmind-backend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/synthmind-backend:latest'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'GEMINI_MODEL=gemini-3.5-flash-lite,ENABLE_FIRESTORE=true'
+
+images:
+  - 'gcr.io/$PROJECT_ID/synthmind-backend:latest'
