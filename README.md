@@ -1,43 +1,34 @@
-<div align="center">
+![SynthMind Banner](banner.png)
 
-# 🧠 SynthMind
-### **Autonomous Research & Decision Intelligence Platform**
+# SynthMind
 
-*Transforming ambiguous exploration into high-confidence strategic decisions through adaptive co-thinking, multi-agent synthesis, and deterministic decision science.*
+> **Autonomous Collaborative Co-Thinking Runtime on Google Cloud • Multi-Agent Research Synthesis • Adaptive Cognitive Decision Science**
 
-<br/>
-
-[![Live Production Web App](https://img.shields.io/badge/🚀_Live_Production_App-synthmind--ai--d39ed.web.app-00C853?style=for-the-badge&logo=google-chrome&logoColor=white)](https://synthmind-ai-d39ed.web.app)
-[![Google Cloud Infrastructure](https://img.shields.io/badge/Google_Cloud-Firestore_NoSQL-FFA611?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com)
-[![Agent Harness](https://img.shields.io/badge/Agent_Harness-Google_ADK-007FFF?style=for-the-badge&logo=google&logoColor=white)](https://github.com/google/agent-development-kit)
-
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-synthmind--ai--d39ed.web.app-00C853?style=flat-square&logo=google-chrome&logoColor=white)](https://synthmind-ai-d39ed.web.app)
+[![Agent Harness](https://img.shields.io/badge/Agent_Harness-Google_ADK_v1.0-007FFF?style=flat-square&logo=google&logoColor=white)](https://github.com/google/agent-development-kit)
 [![Models](https://img.shields.io/badge/Models-Gemini_3.5_Flash_%7C_3.7_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
-[![Grounding](https://img.shields.io/badge/Search_Grounding-Google_Search_Tool-4285F4?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
-[![Frontend](https://img.shields.io/badge/Frontend-Next.js_16_%7C_React_19_%7C_TS-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
+[![Search Grounding](https://img.shields.io/badge/Grounding-Google_Search_Tool-0F9D58?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
+[![Cloud Database](https://img.shields.io/badge/Database-Google_Cloud_Firestore-FFA611?style=flat-square&logo=firebase&logoColor=white)](https://firebase.google.com)
+[![Hosting](https://img.shields.io/badge/Hosting-Firebase_Global_CDN-FFCA28?style=flat-square&logo=firebase&logoColor=white)](https://synthmind-ai-d39ed.web.app)
+[![Frontend](https://img.shields.io/badge/Frontend-Next.js_16_%7C_React_19-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI_%7C_Python_3.13-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Tests](https://img.shields.io/badge/Tests-17%2F17_Passing_(100%25)-34A853?style=flat-square&logo=pytest&logoColor=white)](backend/tests/)
+[![CI Tests](https://img.shields.io/badge/CI_Tests-17%2F17_Passing_(100%25)-34A853?style=flat-square&logo=pytest&logoColor=white)](backend/tests/)
 [![Security](https://img.shields.io/badge/Security-DOMPurify_XSS_Immune-673AB7?style=flat-square)](frontend/src/app/page.tsx)
-[![Bonus AI](https://img.shields.io/badge/Bonus_Models-Gemma_2_%7C_Veo_3.1_%7C_Lyria-EA4335?style=flat-square&logo=google&logoColor=white)](backend/core/agents/)
+[![Bonus AI](https://img.shields.io/badge/Bonus_AI-Gemma_2_%7C_Veo_3.1_%7C_Lyria-EA4335?style=flat-square&logo=google&logoColor=white)](backend/core/agents/)
 [![License](https://img.shields.io/badge/License-MIT-FF6F00?style=flat-square)](LICENSE)
-
-<br/>
-
-[**Explore Live App**](https://synthmind-ai-d39ed.web.app) • [**Architecture Diagram**](#-architecture--data-flow) • [**Multi-Agent Hierarchy**](#-multi-agent-cognitive-hierarchy) • [**Test Suite**](#-automated-testing-suite-100-pass) • [**Quickstart**](#-quickstart-guide)
 
 ---
 
-</div>
+## 🎯 The Vision & Mission
 
-## 📌 Executive Summary
+Every day, researchers, engineers, and executive leaders face severe information overload when making mission-critical decisions. Traditional AI assistants are **passive** — answering prompt-by-prompt without structure, methodology, or verified decision science.
 
-Modern decision-makers face severe cognitive overload when analyzing complex technical trade-offs, architecture options, or strategic investments. Traditional conversational AI is **passive** — answering prompt-by-prompt without methodology, deterministic math, or cognitive depth.
-
-**SynthMind** is a **proactive co-intelligence engine** built with the **Google Agent Development Kit (ADK)** and **Gemini 3.5 / 3.7 Flash**:
-1. **Socratic Goal Deconstruction:** Leads the conversation to uncover unstated constraints, assumptions, and edge cases.
-2. **Real-Time Token Streaming (SSE):** Sub-second response latency with live word-by-word streaming generation.
-3. **Deterministic MCDA Scoring:** Quantitative Multi-Criteria Decision Analysis with live interactive weight sliders (no hallucinated math).
-4. **Adversarial Self-Critique:** Automated bias auditing and calibrated confidence verification (`✓ Verified`, `◐ Reviewed`, `⚠ Needs Review`).
-5. **Adaptive Cognitive Profiler:** Dynamically tunes communication depth, analytical rigor, and visual density to the user's cognitive style.
+**SynthMind** is an **autonomous collaborative co-intelligence partner**:
+- 🔍 **Socratic Goal Deconstruction:** Proactively uncovers hidden constraints, operational risks, and unstated assumptions.
+- ⚡ **Real-Time Token Streaming (SSE):** Sub-second response latency with word-by-word streaming generation.
+- 📊 **Deterministic MCDA Engine:** Pure mathematical Multi-Criteria Decision Analysis with live interactive weight recalculation sliders.
+- 🛡️ **Adversarial Self-Critique:** Automated bias auditing and calibrated confidence scoring (`✓ Verified`, `◐ Reviewed`, `⚠ Needs Review`).
+- 🧬 **Adaptive Cognitive Profiler:** Dynamically tunes communication depth, analytical rigor, and visual density to the user's cognitive style.
 
 ---
 
@@ -56,11 +47,7 @@ Every mandatory criterion specified across all competition tracks is 100% fulfil
 
 ## 🏗️ Architecture & Data Flow
 
-<div align="center">
-
 ![SynthMind System Architecture](architecture-diagram.png)
-
-</div>
 
 ```mermaid
 graph TD
@@ -212,14 +199,23 @@ tests/test_tools.py::test_compute_confidence_bucket PASSED               [100%]
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Deployment & Local Quickstart Guide
 
-### Prerequisites
+### 🌐 Live Cloud Deployment (Production)
+- **Live Web App:** **[https://synthmind-ai-d39ed.web.app](https://synthmind-ai-d39ed.web.app)**
+- **Database:** Google Cloud Firestore (`synthmind-ai-d39ed`)
+- **Deploy Command:** `npx firebase deploy`
+
+---
+
+### 💻 Local Development Setup
+
+#### Prerequisites
 - Python 3.10+
 - Node.js 18+
 - Gemini API Key from [Google AI Studio](https://aistudio.google.com)
 
-### 1. Backend Setup
+#### 1. Backend Setup
 
 ```bash
 cd synthmind/backend
@@ -239,7 +235,7 @@ python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 *API Gateway runs on `http://localhost:8000` (Docs at `http://localhost:8000/docs`)*
 
-### 2. Frontend Setup
+#### 2. Frontend Setup
 
 ```bash
 cd synthmind/frontend
