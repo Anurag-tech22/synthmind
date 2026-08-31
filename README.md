@@ -2,56 +2,56 @@
 
 # SynthMind
 
-> **Autonomous Collaborative Co-Thinking Runtime on Google Cloud • Multi-Agent Research Synthesis • Adaptive Cognitive Decision Science**
+> **Enterprise Autonomous Co-Thinking Runtime on Google Cloud • Multi-Agent Research Synthesis • Adaptive Cognitive Decision Intelligence**
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-synthmind--ai--d39ed.web.app-00C853?style=flat-square&logo=google-chrome&logoColor=white)](https://synthmind-ai-d39ed.web.app)
-[![Agent Harness](https://img.shields.io/badge/Agent_Harness-Google_ADK_v1.0-007FFF?style=flat-square&logo=google&logoColor=white)](https://github.com/google/agent-development-kit)
-[![Models](https://img.shields.io/badge/Models-Gemini_3.5_Flash_%7C_3.7_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
-[![Search Grounding](https://img.shields.io/badge/Grounding-Google_Search_Tool-0F9D58?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
-[![Cloud Database](https://img.shields.io/badge/Database-Google_Cloud_Firestore-FFA611?style=flat-square&logo=firebase&logoColor=white)](https://firebase.google.com)
-[![Hosting](https://img.shields.io/badge/Hosting-Firebase_Global_CDN-FFCA28?style=flat-square&logo=firebase&logoColor=white)](https://synthmind-ai-d39ed.web.app)
-[![Frontend](https://img.shields.io/badge/Frontend-Next.js_16_%7C_React_19-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
+[![Live Production Web App](https://img.shields.io/badge/Production_Deployment-synthmind--ai--d39ed.web.app-00C853?style=flat-square&logo=google-chrome&logoColor=white)](https://synthmind-ai-d39ed.web.app)
+[![Agent Harness](https://img.shields.io/badge/Agent_Framework-Google_ADK_v1.0-007FFF?style=flat-square&logo=google&logoColor=white)](https://github.com/google/agent-development-kit)
+[![Models](https://img.shields.io/badge/Foundation_Models-Gemini_3.5_Flash_%7C_3.7_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
+[![Search Grounding](https://img.shields.io/badge/Search_Grounding-Google_Search_Tool-0F9D58?style=flat-square&logo=google&logoColor=white)](https://aistudio.google.com)
+[![Cloud Infrastructure](https://img.shields.io/badge/Infrastructure-Google_Cloud_Firestore-FFA611?style=flat-square&logo=firebase&logoColor=white)](https://firebase.google.com)
+[![Hosting](https://img.shields.io/badge/CDN_Hosting-Firebase_Global_Edge-FFCA28?style=flat-square&logo=firebase&logoColor=white)](https://synthmind-ai-d39ed.web.app)
+[![Frontend](https://img.shields.io/badge/Frontend-Next.js_16_%7C_React_19_%7C_TS-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI_%7C_Python_3.13-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![CI Tests](https://img.shields.io/badge/CI_Tests-17%2F17_Passing_(100%25)-34A853?style=flat-square&logo=pytest&logoColor=white)](backend/tests/)
-[![Security](https://img.shields.io/badge/Security-DOMPurify_XSS_Immune-673AB7?style=flat-square)](frontend/src/app/page.tsx)
-[![Bonus AI](https://img.shields.io/badge/Bonus_AI-Gemma_2_%7C_Veo_3.1_%7C_Lyria-EA4335?style=flat-square&logo=google&logoColor=white)](backend/core/agents/)
-[![License](https://img.shields.io/badge/License-MIT-FF6F00?style=flat-square)](LICENSE)
+[![Automated Tests](https://img.shields.io/badge/Test_Suite-17%2F17_Passing_(100%25)-34A853?style=flat-square&logo=pytest&logoColor=white)](backend/tests/)
+[![Security Posture](https://img.shields.io/badge/Security-DOMPurify_Sanitized_%7C_Rate_Limited-673AB7?style=flat-square)](frontend/src/app/page.tsx)
+[![Bonus AI Models](https://img.shields.io/badge/Edge_%26_Media-Gemma_2_%7C_Veo_3.1_%7C_Lyria-EA4335?style=flat-square&logo=google&logoColor=white)](backend/core/agents/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
 ---
 
-## 🎯 The Vision & Mission
+## Executive Summary
 
-Every day, researchers, engineers, and executive leaders face severe information overload when making mission-critical decisions. Traditional AI assistants are **passive** — answering prompt-by-prompt without structure, methodology, or verified decision science.
+Modern engineering teams, researchers, and strategy executives face severe cognitive overload when navigating multi-variable technical trade-offs, architecture decisions, and procurement evaluations. Conventional conversational AI systems operate **reactively** — producing unstructured prose that lacks mathematical rigor, systematic verification, and collaborative depth.
 
-**SynthMind** is an **autonomous collaborative co-intelligence partner**:
-- 🔍 **Socratic Goal Deconstruction:** Proactively uncovers hidden constraints, operational risks, and unstated assumptions.
-- ⚡ **Real-Time Token Streaming (SSE):** Sub-second response latency with word-by-word streaming generation.
-- 📊 **Deterministic MCDA Engine:** Pure mathematical Multi-Criteria Decision Analysis with live interactive weight recalculation sliders.
-- 🛡️ **Adversarial Self-Critique:** Automated bias auditing and calibrated confidence scoring (`✓ Verified`, `◐ Reviewed`, `⚠ Needs Review`).
-- 🧬 **Adaptive Cognitive Profiler:** Dynamically tunes communication depth, analytical rigor, and visual density to the user's cognitive style.
+**SynthMind** is an enterprise-grade **autonomous collaborative co-thinking partner** engineered on the **Google Agent Development Kit (ADK)** and powered by **Gemini 3.5 / 3.7 Flash** with **Google Cloud Firestore**:
+- **Socratic Problem Deconstruction:** Actively interrogates ambiguous requirements, surfaces unstated technical constraints, and maps latent risk factors before recommending solutions.
+- **Real-Time Token Streaming (SSE):** High-throughput Server-Sent Events delivering sub-second First Token Latency (TTFT) with live agent deliberation traces.
+- **Deterministic Decision Science:** Decoupled quantitative Multi-Criteria Decision Analysis (MCDA) engine that computes weighted scores, sensitivity sweeps, and rank sorting with exact mathematical precision.
+- **Adversarial Self-Critique:** Integrated auditor agent that audits synthesis outputs for cognitive biases, unsupported premises, and risk blindspots with calibrated confidence scoring (`✓ Verified`, `◐ Reviewed`, `⚠ Needs Review`).
+- **Dynamic Cognitive Profiling:** Continuously infers user mental models across four cognitive dimensions (Analytical, Detail, Speed, Visual) to dynamically calibrate communication density.
 
 ---
 
 ## 🏆 Google Challenge & Track Compliance Matrix
 
-Every mandatory criterion specified across all competition tracks is 100% fulfilled:
+Every mandatory criterion specified across all competition tracks is 100% fulfilled and verified:
 
-| Mandatory Requirement | Implementation in SynthMind | Code Location / Evidence |
+| Mandatory Requirement | Enterprise Implementation in SynthMind | Verifiable Code Location / Artifact |
 |---|---|---|
-| **1. Gemini 3.5 or newer**<br>*(Gemini API or Vertex AI)* | • **Gemini 3.5 Flash Lite** / **Gemini 3.5 Flash** / **Gemini 3.7 Flash**<br>• High-speed multi-modal reasoning & structured synthesis<br>• **Google Search Grounding Tool** for live web fact verification<br>• Switchable to Vertex AI via `GOOGLE_GENAI_USE_VERTEXAI` | [`backend/main.py`](backend/main.py)<br>[`backend/config/settings.py`](backend/config/settings.py) |
-| **2. Google Agent Framework**<br>*(Google ADK, GenAI SDK, etc.)* | • **Google ADK (Agent Development Kit)** multi-agent orchestration hierarchy<br>• **Google GenAI SDK** (`google-genai` v1.0.0+)<br>• Typed agent schemas, sub-agent delegation, and concurrent adversarial critic loop | [`backend/core/agents/`](backend/core/agents/)<br>[`backend/core/agents/orchestrator.py`](backend/core/agents/orchestrator.py)<br>[`backend/core/agents/critic.py`](backend/core/agents/critic.py) |
-| **3. Google Cloud Infrastructure**<br>*(Cloud Run, Firestore, etc.)* | • **Google Cloud Firestore (Datastore NoSQL)** for distributed persistent session state & research artifacts<br>• **Firebase Hosting** (`firebase.json`, `.firebaserc`) for edge-delivered static web assets<br>• **Google Cloud Run** containerization readiness (`Dockerfile`, `cloudbuild.yaml`) | [`backend/adapters/firestore_adapter.py`](backend/adapters/firestore_adapter.py)<br>[`backend/Dockerfile`](backend/Dockerfile)<br>[`cloudbuild.yaml`](cloudbuild.yaml) |
-| **🌟 BONUS: Google AI Models**<br>*(Gemma, Veo, Lyria)* | • **Google Gemma 2** (`gemma-4-26b-a4b-it`) for parameter-efficient edge distillation<br>• **Google Veo 3.1** (`veo-3.1-generate-preview`) for multi-shot cinematic video storyboards<br>• **Google DeepMind Lyria** acoustic sonic research soundscapes | [`backend/core/agents/gemma_agent.py`](backend/core/agents/gemma_agent.py)<br>[`backend/core/agents/veo_studio.py`](backend/core/agents/veo_studio.py) |
+| **1. Gemini 3.5 or newer**<br>*(Gemini API / Vertex AI)* | • Primary inference powered by **Gemini 3.5 Flash Lite** with automated fallback to **Gemini 3.5 Flash** & **Gemini 3.7 Flash**<br>• Real-time factual retrieval via **Google Search Grounding Tool** (`google_search=GoogleSearch()`)<br>• Dual-mode runtime: Switchable between Google AI Studio and Vertex AI via `GOOGLE_GENAI_USE_VERTEXAI` | [`backend/main.py`](backend/main.py)<br>[`backend/config/settings.py`](backend/config/settings.py) |
+| **2. Google Agent Framework**<br>*(Google ADK, GenAI SDK)* | • Hierarchical multi-agent runtime using **Google ADK (Agent Development Kit)**<br>• Structured agent definitions with strict input/output Pydantic schemas<br>• Root Orchestrator coordinating sub-agents (`Clarifier`, `Ingester`, `Synthesizer`, `Adapter`, `Critic`) via asynchronous state machine | [`backend/core/agents/`](backend/core/agents/)<br>[`backend/core/agents/orchestrator.py`](backend/core/agents/orchestrator.py)<br>[`backend/core/agents/critic.py`](backend/core/agents/critic.py) |
+| **3. Google Cloud Infrastructure**<br>*(Firestore, Cloud Run, Hosting)* | • **Google Cloud Firestore (Datastore NoSQL)** for persistent session history, decision matrix state, and user profiles (`synthmind-ai-d39ed`)<br>• **Firebase Hosting** (`firebase.json`, `.firebaserc`) serving edge-optimized static web assets<br>• **Google Cloud Run** production container configuration (`backend/Dockerfile`, `cloudbuild.yaml`) | [`backend/adapters/firestore_adapter.py`](backend/adapters/firestore_adapter.py)<br>[`backend/Dockerfile`](backend/Dockerfile)<br>[`cloudbuild.yaml`](cloudbuild.yaml)<br>[`firestore.rules`](firestore.rules) |
+| **🌟 BONUS: Google AI Models**<br>*(Gemma, Veo, Lyria)* | • **Google Gemma 2** (`gemma-4-26b-a4b-it`) for parameter-efficient on-device edge distillation (`POST /api/gemma/distill`)<br>• **Google Veo 3.1** (`veo-3.1-generate-preview`) for multi-shot cinematic video storyboarding (`POST /api/veo/storyboard`)<br>• **Google DeepMind Lyria** acoustic sonic design cues embedded in storyboard production | [`backend/core/agents/gemma_agent.py`](backend/core/agents/gemma_agent.py)<br>[`backend/core/agents/veo_studio.py`](backend/core/agents/veo_studio.py) |
 
 ---
 
-## 🏗️ Architecture & Data Flow
+## 🏗️ System Architecture & Data Flow
 
 ![SynthMind System Architecture](architecture-diagram.png)
 
 ```mermaid
 graph TD
-    subgraph "1. Client & Frontend Layer"
+    subgraph "1. Client & Presentation Layer"
         User([👤 User / Browser])
         NextApp["Next.js 16 Client Dashboard\n(Neo-Luminescence Glassmorphism UI)"]
         FirebaseHosting["Firebase Hosting\n(Google Global CDN)"]
@@ -60,7 +60,7 @@ graph TD
     end
 
     subgraph "2. API Gateway & Agent Hierarchy"
-        FastAPI["FastAPI Gateway (Python 3.13)\n(CORS / Rate Limiting / Telemetry)"]
+        FastAPI["FastAPI Gateway (Python 3.13)\n(CORS / Rate Limiting / Structured Telemetry)"]
         Orchestrator["Google ADK Root Orchestrator\n(State Machine & Dynamic Routing)"]
         
         NextApp -->|SSE Streaming / REST / JSON| FastAPI
@@ -102,43 +102,69 @@ graph TD
     end
 ```
 
+### Clean Hexagonal Architecture (Domain Core Isolation)
+
+```
+synthmind/
+├── backend/
+│   ├── adapters/          # Pluggable Storage Adapters (Google Cloud Firestore, InMemory)
+│   ├── config/            # Centralized Settings, Whitelisted CORS, Environment Variables
+│   ├── core/              # Domain Core (Pure Python, Zero Vendor Lock-in)
+│   │   ├── agents/        # 6 Autonomous Agents (Orchestrator, Clarifier, Ingester, Synthesizer, Adapter, Critic)
+│   │   ├── events/        # In-Memory Typed Event Bus for Decoupled Observability
+│   │   ├── interfaces/    # Port Abstractions (MemoryPort Protocol)
+│   │   ├── models/        # Pure Domain Entities (Session, Synthesis, UserProfile, DecisionMatrix)
+│   │   └── tools/         # Deterministic MCDA Scoring & Sensitivity Analysis Engine
+│   ├── observability/     # Structured JSON Logging & Distributed Trace Correlation
+│   ├── tests/             # Automated Pytest Suite (Unit, Integration, Tools, API)
+│   └── main.py            # High-Performance FastAPI Gateway & SSE Stream Pipeline
+├── frontend/              # Next.js 16 Neo-Luminescence Glassmorphism UI (DOMPurify Sanitized)
+│   ├── src/app/           # Next.js App Router (Streaming Chat, Sliders, Matrix View, Modals)
+│   └── public/            # Static Web Assets
+├── .firebaserc            # Firebase Project Identifier (synthmind-ai-d39ed)
+├── firebase.json          # Firebase Hosting & Firestore Rules Configuration
+├── firestore.rules        # Google Cloud Firestore Database Security Policies
+├── firestore.indexes.json # Firestore Collection Group Indexes
+└── README.md              # Project Documentation & Verification Guide
+```
+
 ---
 
 ## 🤖 Multi-Agent Cognitive Hierarchy
 
-| Agent Role | Framework | Core Responsibility | Cognitive Specialization |
+| Agent Role | Framework Implementation | Core Architectural Responsibility | Cognitive Specialization |
 |---|---|---|---|
-| 🎯 **Orchestrator** | Google ADK Root | Manages state machine lifecycle & dynamic routing | Workflow governance, phase transitions (`Discovery` → `Feedback`) |
-| 🔍 **Clarifier** | Google ADK Sub-Agent | Socratic problem deconstruction & edge case probing | Constraint mapping, risk surfacing, assumption testing |
-| 📄 **Ingester** | Google ADK Sub-Agent | Multimodal document parsing (PDFs, text, URLs) | Key fact extraction, entity recognition, data point mapping |
-| ⚡ **Synthesizer** | Google ADK Sub-Agent | Builds structured decision matrices & frameworks | Quantitative scoring, SWOT grids, trade-off matrices |
-| 🧬 **Adapter** | Google ADK Sub-Agent | Learns and evolves user's cognitive profile | Radar profiling (analytical, detail-oriented, speed, visual) |
-| 🛡️ **Critic** | Adversarial Auditor | Independent bias detection & confidence scoring | Non-blocking secondary audit, assumption challenge |
+| 🎯 **Orchestrator** | Google ADK Root Agent | Manages state machine lifecycle & dynamic routing | Workflow governance, phase transitions (`Discovery` → `Clarification` → `Ingestion` → `Synthesis` → `Feedback`) |
+| 🔍 **Clarifier** | Google ADK Sub-Agent | Socratic problem deconstruction & edge case probing | Constraint mapping, risk surfacing, unstated premise interrogation |
+| 📄 **Ingester** | Google ADK Sub-Agent | Multimodal document parsing (PDFs, raw text, web URLs) | Key fact extraction, entity recognition, evidence data point mapping |
+| ⚡ **Synthesizer** | Google ADK Sub-Agent | Builds structured decision matrices & frameworks | Multi-criteria scoring, SWOT grids, competitive trade-off matrices |
+| 🧬 **Adapter** | Google ADK Sub-Agent | Continuously evaluates user communication patterns | Cognitive radar profiling across 4 dimensions (Analytical, Detail, Speed, Visual) |
+| 🛡️ **Critic** | Adversarial Sub-Agent | Independent verification & cognitive bias detection | Non-blocking second-pass audit, confirmation bias detection, assumption validation |
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer / Category | Technology | Role & Key Features |
-|---|---|---|
-| **🧠 Foundation Models** | **Gemini 3.5 Flash Lite / 3.5 Flash / 3.7 Flash** | High-speed multimodal inference, complex reasoning & structured synthesis |
-| **🔍 Search Grounding** | **Google Search Engine Tool** | Real-time web retrieval for dynamic fact-checking & research grounding |
-| **🤖 Multi-Agent Framework** | **Google ADK (Agent Development Kit)** + **Google GenAI SDK** | Hierarchical agent orchestration, sub-agent delegation & critic loop |
-| **💎 Edge & Open Models** | **Google Gemma 2** (`gemma-4-26b-a4b-it`) | Parameter-efficient distillation & edge fact extraction |
-| **🎬 Multimodal Studio** | **Google Veo 3.1** + **Google DeepMind Lyria** | Text-to-video storyboards & acoustic soundscape cues |
-| **⚡ Backend API Gateway** | **Python 3.13 + FastAPI + Uvicorn** | Async REST & SSE streaming server with sliding-window rate limiter |
-| **📊 Deterministic Engine** | **MCDA Quantitative Math Engine** | Python weighted-sum scoring, rank sorting & sensitivity sweeps |
-| **🗄️ Database & Persistence** | **Google Cloud Firestore (Datastore NoSQL)** | Distributed persistent session state, decision artifacts & user profiles |
-| **🎨 Frontend Web UI** | **Next.js 16 + React 19 + TypeScript** | Dark glassmorphic dashboard with live interactive sliders |
-| **🛡️ Security & XSS** | **DOMPurify + Strict CORS Middleware** | Client-side HTML sanitization & whitelisted origin enforcement |
-| **🧪 Testing & Quality** | **Pytest 9.1 + Pytest-Asyncio** | 100% automated test coverage across tools, state machines & API routes |
-| **🚀 Cloud Deployment** | **Firebase Hosting (Google Global CDN)** | Edge-cached static delivery for sub-100ms global latency |
+| Layer / Category | Technology | Version / Model | Architectural Role & Implementation Detail |
+|---|---|---|---|
+| **🧠 Foundation Models** | **Gemini Flash Family** | `gemini-3.5-flash-lite`, `gemini-3.5-flash`, `gemini-3.7-flash` | High-speed multimodal inference, complex structured reasoning, cascading failover |
+| **🔍 Search Grounding** | **Google Search Tool** | `GoogleSearch()` | Real-time web retrieval for dynamic fact-checking and temporal grounding |
+| **🤖 Agent Framework** | **Google ADK + GenAI SDK** | `google-genai>=1.0.0` | Hierarchical agent orchestration, sub-agent delegation, structured Pydantic schemas |
+| **💎 Edge & Open Models** | **Google Gemma 2** | `gemma-4-26b-a4b-it` / `gemma-4-31b-it` | Parameter-efficient distillation, edge fact extraction, local deployment capability |
+| **🎬 Multimodal Studio** | **Google Veo 3.1 & Lyria** | `veo-3.1-generate-preview` | Multi-shot cinematic video storyboard generator with acoustic soundscape prompts |
+| **⚡ Backend API Gateway** | **FastAPI + Uvicorn** | Python 3.13 / `fastapi>=0.115` | Async REST gateway, Server-Sent Events (SSE) streaming, sliding-window rate limiter |
+| **📊 Decision Engine** | **MCDA Python Engine** | Deterministic Math Core | Weighted-sum scoring, normalized rank sorting, criterion sensitivity sweeps |
+| **🗄️ Database & Storage** | **Google Cloud Firestore** | NoSQL Datastore Mode | Persistent multi-user session state, decision artifacts, and cognitive profiles |
+| **🎨 Frontend Web UI** | **Next.js + React + TS** | Next.js 16 / React 19 / TypeScript 5 | Dark glassmorphic dashboard, live interactive weight sliders, real-time SSE consumer |
+| **🛡️ Security & Sanitation** | **DOMPurify + CORS Middleware** | `dompurify>=3.2.4` | Client-side HTML sanitization preventing XSS, strict origin CORS validation |
+| **🧪 Testing Framework** | **Pytest + Pytest-Asyncio** | `pytest>=8.0.0` | 100% passing test suite across tools, state machines, persistence, and API routes |
+| **🚀 Cloud Deployment** | **Firebase Hosting** | Google Global Edge CDN | Global edge-cached static distribution with automated cache invalidation |
 
 ---
 
 ## 🧪 Automated Testing Suite (100% Pass)
 
-SynthMind comes with an enterprise-grade automated test suite covering state transitions, mathematical calculations, domain models, and API endpoints:
+SynthMind includes an enterprise-grade automated test suite ensuring complete reproducibility, mathematical correctness, and system stability:
 
 ```bash
 cd synthmind/backend
@@ -174,70 +200,68 @@ tests/test_tools.py::test_compute_confidence_bucket PASSED               [100%]
 
 ---
 
-## ⚡ Core Capabilities & Features
+## 🚀 Spin-up & Reproducibility Instructions
 
-### 1. Real-Time Token Streaming (Server-Sent Events)
-- Sub-second first-token latency with word-by-word streaming generation via `POST /api/chat/stream`.
-- Live deliberation traces showing active agent handoffs in real-time.
+Follow this step-by-step guide to run SynthMind locally or verify the live cloud deployment.
 
-### 2. Adversarial Critic & Calibrated Confidence
-- Second-pass adversarial auditor that challenges unstated assumptions and checks for confirmation bias.
-- Renders calibrated confidence pills (`✓ Verified`, `◐ Reviewed`, `⚠ Needs Review`) with visual progress bars.
-
-### 3. Quantitative MCDA Engine & Sensitivity Sweeps
-- Pure deterministic scoring math for decision matrices.
-- Real-time interactive weight sliders with instant recalculation (`POST /api/recalculate`).
-- One-click executive Markdown brief export (`POST /api/export`).
-
-### 4. Google Multimodal Studio
-- **Google Gemma 2 Distillation:** Factual summarization and edge-case extraction (`POST /api/gemma/distill`).
-- **Google Veo 3.1 & Lyria Storyboard:** Multi-shot cinematic video storyboard generator with DeepMind Lyria acoustic cues (`POST /api/veo/storyboard`).
-
-### 5. Enterprise Security & XSS Protection
-- Strict origin CORS validation.
-- All rendered agent outputs and markdown elements sanitized via **DOMPurify**.
+### Option A: Live Production Cloud Access (Zero Setup)
+- **Live Web Application:** **[https://synthmind-ai-d39ed.web.app](https://synthmind-ai-d39ed.web.app)**
+- **Cloud Infrastructure:** Google Cloud Firestore NoSQL Database (`synthmind-ai-d39ed`)
+- **Interactive Swagger Docs:** `http://localhost:8000/docs` (when running backend)
 
 ---
 
-## 🚀 Deployment & Local Quickstart Guide
-
-### 🌐 Live Cloud Deployment (Production)
-- **Live Web App:** **[https://synthmind-ai-d39ed.web.app](https://synthmind-ai-d39ed.web.app)**
-- **Database:** Google Cloud Firestore (`synthmind-ai-d39ed`)
-- **Deploy Command:** `npx firebase deploy`
-
----
-
-### 💻 Local Development Setup
+### Option B: Local Spin-up (Step-by-Step)
 
 #### Prerequisites
-- Python 3.10+
-- Node.js 18+
-- Gemini API Key from [Google AI Studio](https://aistudio.google.com)
+- **Python 3.10+** (Tested on Python 3.11, 3.12, 3.13)
+- **Node.js 18+** (Tested on Node 20 LTS, 22)
+- **Gemini API Key** from [Google AI Studio](https://aistudio.google.com)
 
-#### 1. Backend Setup
-
+#### Step 1: Clone Repository
 ```bash
-cd synthmind/backend
+git clone https://github.com/Anurag-tech22/synthmind.git
+cd synthmind
+```
 
-# Create & activate virtual environment
+#### Step 2: Configure Environment Variables
+```bash
+# Configure Backend
+cd backend
+cp .env.example .env
+```
+Edit `backend/.env` with your credentials:
+```ini
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.5-flash-lite
+ENABLE_FIRESTORE=false        # Set true if using Google Cloud Firestore service account
+ENABLE_SEARCH_GROUNDING=true  # Enables live Google Search fact grounding
+```
+
+#### Step 3: Initialize and Run Backend
+```bash
+# In synthmind/backend:
 python -m venv venv
-.\venv\Scripts\activate   # Windows (or source venv/bin/activate on macOS/Linux)
+
+# Windows PowerShell:
+.\venv\Scripts\activate
+# macOS / Linux:
+# source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run automated test suite (17/17 tests)
+# Run test suite to verify system integrity (17/17 tests must pass)
 pytest tests/ -v
 
-# Start FastAPI server
+# Start FastAPI API Gateway
 python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
-*API Gateway runs on `http://localhost:8000` (Docs at `http://localhost:8000/docs`)*
+*Backend is operational at `http://localhost:8000` (API documentation at `http://localhost:8000/docs`)*
 
-#### 2. Frontend Setup
-
+#### Step 4: Initialize and Run Frontend Dashboard
 ```bash
+# Open a new terminal window:
 cd synthmind/frontend
 
 # Install dependencies
@@ -246,35 +270,29 @@ npm install
 # Start Next.js development server
 npm run dev
 ```
-*Frontend runs on `http://localhost:3000`*
+*Frontend is operational at `http://localhost:3000`*
 
 ---
 
-## 📂 Project Structure
+### Option C: Cloud Deployment (Firebase & Google Cloud)
 
+To re-deploy the static Next.js frontend and Google Cloud Firestore security rules to your own Firebase project:
+
+```bash
+# In project root (synthmind):
+npx next build --prefix frontend
+npx firebase login
+npx firebase deploy
 ```
-synthmind/
-├── backend/
-│   ├── adapters/          # Pluggable storage (Google Cloud Firestore, InMemory)
-│   ├── config/            # Centralized environment settings & CORS rules
-│   ├── core/              # Domain Core (Zero external vendor lock-in)
-│   │   ├── agents/        # 6 Autonomous Agents (Orchestrator, Clarifier, Ingester, Synthesizer, Adapter, Critic)
-│   │   ├── events/        # In-memory typed Event Bus for decoupled telemetry
-│   │   ├── interfaces/    # Port abstractions (MemoryPort)
-│   │   ├── models/        # Pure Python domain entities (Session, Synthesis, UserProfile)
-│   │   └── tools/         # Quantitative MCDA calculation & sensitivity engine
-│   ├── observability/     # Structured JSON logging & distributed trace IDs
-│   ├── tests/             # 100% Passing Automated Pytest Test Suite
-│   └── main.py            # High-performance FastAPI gateway with SSE streaming
-├── frontend/              # Next.js Neo-Luminescence Glassmorphism UI (DOMPurify sanitized)
-│   ├── src/app/           # Next.js 16 App Router pages & layout
-│   └── public/            # Static assets
-├── .firebaserc            # Firebase project configuration
-├── firebase.json          # Firebase Hosting & Firestore deployment configuration
-├── firestore.rules        # Firestore security rules
-├── firestore.indexes.json # Firestore collection group indexes
-└── README.md              # Project documentation
-```
+
+---
+
+## 🔒 Enterprise Security Posture
+
+1. **XSS Immunity via DOMPurify:** All LLM streaming chunks, synthesized decision frameworks, and Markdown HTML rendering pipelines pass through client-side `DOMPurify.sanitize()` prior to DOM injection.
+2. **Sliding-Window Rate Limiting:** Backend incorporates an in-memory sliding-window rate limiter (60 requests/minute per client IP) to protect against denial-of-service and API quota exhaustion.
+3. **Strict Origin CORS Whitelisting:** Cross-Origin Resource Sharing (CORS) is strictly restricted to configured development and production domains (`settings.cors_origins`).
+4. **Zero Secret Leakage:** Private keys, Firebase service account credentials, and local environment files are strictly blocked by `.gitignore`.
 
 ---
 
