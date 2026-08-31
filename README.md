@@ -21,6 +21,8 @@ Every mandatory criterion specified across all competition tracks is 100% fulfil
 
 ## 🏗️ Architecture & Multi-Agent Cognitive Hierarchy
 
+![SynthMind System Architecture](architecture-diagram.png)
+
 ```mermaid
 graph TD
     A[Client Dashboard - Next.js 16] -->|SSE Stream / JSON| B[FastAPI Gateway]
